@@ -60,6 +60,16 @@ sphinx's arguments:
     -b=builder, -a, -E, -d=path, -j=N, -c=path, -C, -D=setting=value, -t=tag, -A=name=value, -n, -v, -q, -Q, -w=file, -W, -T, -N, -P
 ```
 
+### Serving from a different default file
+
+If you keep your root document inside `docs`, you can get the server to use that as its default, as you would otherwise get a `404: Not Found`.
+
+For example:
+
+```bash
+sphinx-autobuild "." "_build" --default-filename=docs/index.html
+```
+
 ### Using with Makefile
 
 > FYI: Sphinx is planning to [move away from using `Makefile`](https://github.com/sphinx-doc/sphinx/issues/5618#issuecomment-502415633).

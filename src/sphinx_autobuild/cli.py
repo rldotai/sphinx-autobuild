@@ -123,6 +123,14 @@ def get_parser():
         help="additional command(s) to run prior to building the documentation",
     )
     parser.add_argument(
+        "--default-filename",
+        dest="default_filename",
+        metavar="FILE",
+        type=str,
+        default=None,
+        help="Default file to serve (e.g., 'docs/index.html')",
+    )
+    parser.add_argument(
         "--version", action="version", version="sphinx-autobuild {}".format(__version__)
     )
 
@@ -145,7 +153,10 @@ def get_parser():
             )
         else:
             sphinx_parser.add_argument(
-                f"-{arg}", action="append", help=argparse.SUPPRESS, metavar=meta,
+                f"-{arg}",
+                action="append",
+                help=argparse.SUPPRESS,
+                metavar=meta,
             )
 
     parser.add_argument("sourcedir", help="source directory")
@@ -191,6 +202,18 @@ def main():
         builder()
 
     if args.openbrowser is True:
-        server.serve(port=portn, host=args.host, root=outdir, open_url_delay=args.delay)
+        server.serve(
+            port=portn,
+            host=args.host,
+            root=outdir,
+            open_url_delay=args.delay,
+            default_filename=args.default_filename,
+        )
     else:
-        server.serve(port=portn, host=args.host, root=outdir)
+        print(args)
+        server.serve(
+            port=portn,
+            host=args.host,
+            root=outdir,
+            default_filename=args.default_filename,
+        )
